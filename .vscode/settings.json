@@ -1,0 +1,15 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/ljj/test_try_ws/devel/lib/python3/dist-packages",
+        "/home/ljj/ros_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/ljj/just_5g_ws/devel/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/ljj/test_try_ws/devel/lib/python3/dist-packages",
+        "/home/ljj/ros_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/ljj/just_5g_ws/devel/lib/python3/dist-packages"
+
+    ]
+}

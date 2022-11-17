@@ -1,0 +1,8 @@
+prefix=/home/ljj/just_5g_ws/devel
+
+Name: wit_imu
+Description: Description of wit_imu
+Version: 0.0.0
+Cflags: -I/home/ljj/just_5g_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy std_msgs

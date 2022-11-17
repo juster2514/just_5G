@@ -1,0 +1,40 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/ljj/test_try_ws/devel/include/**",
+        "/home/ljj/ros_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/ljj/test_try_ws/src/hello_vscode/include/**",
+        "/home/ljj/ros_ws/src/helloworld/include/**",
+        "/home/ljj/test_try_ws/src/launch01_basic/include/**",
+        "/home/ljj/test_try_ws/src/plumbing_param_server/include/**",
+        "/home/ljj/test_try_ws/src/plumbing_pub_sub/include/**",
+        "/home/ljj/test_try_ws/src/plumbing_server_client/include/**",
+        "/home/ljj/test_try_ws/src/plumbing_test/include/**",
+        "/home/ljj/test_try_ws/src/rename01_node/include/**",
+        "/home/ljj/test_try_ws/src/rosbag_demo/include/**",
+        "/home/ljj/ros_ws/src/stdr_simulator/stdr_gui/include/**",
+        "/home/ljj/ros_ws/src/stdr_simulator/stdr_parser/include/**",
+        "/home/ljj/ros_ws/src/stdr_simulator/stdr_robot/include/**",
+        "/home/ljj/ros_ws/src/stdr_simulator/stdr_samples/include/**",
+        "/home/ljj/ros_ws/src/stdr_simulator/stdr_server/include/**",
+        "/home/ljj/test_try_ws/src/tf01_static/include/**",
+        "/home/ljj/test_try_ws/src/tf02_dynamic/include/**",
+        "/home/ljj/test_try_ws/src/tf03_tfs/include/**",
+        "/home/ljj/test_try_ws/src/tf04_test/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

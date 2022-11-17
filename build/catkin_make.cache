@@ -1,0 +1,2 @@
+wit_imu
+-DCATKIN_DEVEL_PREFIX=/home/ljj/just_5g_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ljj/just_5g_ws/install -G Unix Makefiles
