@@ -131,6 +131,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/ljj/just_5g_ws/build/gtest/cmake_install.cmake")
+  include("/home/ljj/just_5g_ws/build/chassis_drive/cmake_install.cmake")
   include("/home/ljj/just_5g_ws/build/wit_imu/cmake_install.cmake")
 
 endif()
