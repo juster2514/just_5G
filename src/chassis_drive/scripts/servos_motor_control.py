@@ -1,8 +1,5 @@
 import RPi.GPIO as GPIO
 from time import sleep
-import rospy
-
-
 
 servo_pin = 12                # 舵机信号线接树莓派12
 moto_pin = 13     # 电调信号线接树莓派13
