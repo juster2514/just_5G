@@ -33,7 +33,7 @@ def hex_to_short(raw_data):
 
 # 处理串口数据
 def handleSerialData(raw_data):
-    global buff, key, angle_degree, magnetometer, acceleration, angularVelocity, pub_flag, readreg, calibuff, flag, mag_offset, mag_range, version,lon_lat
+    global buff, key, angle_degree, magnetometer, acceleration, angularVelocity, pub_flag, readreg, calibuff, flag, mag_offset, mag_range, version,lon,lat
     angle_flag=False
     if python_version == '2':
         buff[key] = ord(raw_data)
@@ -71,9 +71,10 @@ def handleSerialData(raw_data):
                 print('0x53 校验失败')
         elif buff[1] == 0x57:
             if checkSum(data_buff[0:10], data_buff[10]):
-                lon_lat = [hex_to_short(data_buff[2:10])[i] / 10000000 for i in range(0,2)]
-                lon_lat[0] = (lon_lat[0] / 10000000 + ((lon_lat[0] % 10000000) / 1e5 / 60.0))
-                lon_lat[1] = (lon_lat[1] / 10000000 + ((lon_lat[1] % 10000000) / 1e5 / 60.0))
+                lon= (data_buff[5] << 24) | (data_buff[4] << 16) | (data_buff[3] << 8) | data_buff[2]
+                lat= (data_buff[9] << 24) | (data_buff[8] << 16) | (data_buff[7] << 8) | data_buff[6]
+                lon =lon/10000000.0 #+(lon % 10000000) / 100000.0 /60.0
+                lat =lat/10000000.0 #+(lat % 10000000) / 100000.0 /60.0
             else:
                 print('0x57 校验失败')
         elif buff[1] == 0x5f:
@@ -89,8 +90,8 @@ def handleSerialData(raw_data):
                 print('0x5f 校验失败')
 
         else:
-            #print("该数据处理类没有提供该 " + str(buff[1]) + " 的解析")
-            #print("或数据错误")
+            # print("该数据处理类没有提供该 " + str(buff[1]) + " 的解析")
+            # print("或数据错误")
             buff = {}
             key = 0
 
@@ -117,9 +118,8 @@ def handleSerialData(raw_data):
             imu_msg.linear_acceleration_x = acceleration[0]
             imu_msg.linear_acceleration_y = acceleration[1]
             imu_msg.linear_acceleration_z = acceleration[2]
-            imu_msg.lon = lon_lat[0]
-            imu_msg.lat = lon_lat[1]
-
+            imu_msg.lon = lon
+            imu_msg.lat = lat
             imu_pub.publish(imu_msg)
 
 
@@ -138,7 +138,8 @@ magnetometer = [0, 0, 0]
 angle_degree = [0, 0, 0]
 mag_offset = [0, 0, 0]
 mag_range = [0, 0, 0]
-lon_lat = [0,0]
+lon= 0
+lat= 0
 wt_imu = serial.Serial()
 baudlist = [4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800]
 
@@ -336,7 +337,7 @@ if __name__ == "__main__":
         rospy.loginfo("\033[31m串口打开失败\033[0m")
         exit(0)
     else:
-        AutoScanSensor()
+        # AutoScanSensor()
 
         imu_pub = rospy.Publisher("wit/imu", lonlatmsg, queue_size=10)
 

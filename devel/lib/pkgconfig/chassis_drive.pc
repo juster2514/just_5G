@@ -3,6 +3,6 @@ prefix=/home/ljj/just_5g_ws/devel
 Name: chassis_drive
 Description: Description of chassis_drive
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/ljj/just_5g_ws/devel/include
 Libs: -L${prefix}/lib 
-Requires: 
+Requires: roscpp rospy std_msgs
