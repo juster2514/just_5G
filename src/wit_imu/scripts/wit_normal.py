@@ -33,7 +33,8 @@ def hex_to_short(raw_data):
 
 # 处理串口数据
 def handleSerialData(raw_data):
-    global buff, key, angle_degree, magnetometer, acceleration, angularVelocity, pub_flag, readreg, calibuff, flag, mag_offset, mag_range, version,lon,lat
+    global buff, key, angle_degree, magnetometer, acceleration, angularVelocity, pub_flag, readreg, calibuff, flag, mag_offset, mag_range, version
+    global year,month,day,hour,minute,second,millisecond,lon,lat,sn,pdop,hdop,vdop
     angle_flag=False
     if python_version == '2':
         buff[key] = ord(raw_data)
@@ -48,7 +49,18 @@ def handleSerialData(raw_data):
         return
     else:
         data_buff = list(buff.values())  # 获取字典所有 value
-        if buff[1] == 0x51 :
+        if buff[1] == 0x50:
+            if checkSum(data_buff[0:10], data_buff[10]):
+                year = data_buff[2]
+                month = data_buff[3]
+                day = data_buff[4]
+                hour = data_buff[5]
+                minute =data_buff[6]
+                second = data_buff[7]
+                millisecond = (data_buff[9] << 8) | data_buff[8]
+            else:
+                print('0x50 校验失败')
+        elif buff[1] == 0x51 :
             if checkSum(data_buff[0:10], data_buff[10]):
                 acceleration = [hex_to_short(data_buff[2:10])[i] / 32768.0 * 16 * 9.8 for i in range(0, 3)]
             else:
@@ -77,6 +89,14 @@ def handleSerialData(raw_data):
                 lat =lat/10000000.0 #+(lat % 10000000) / 100000.0 /60.0
             else:
                 print('0x57 校验失败')
+        elif buff[1] == 0x5A:
+            if checkSum(data_buff[0:10], data_buff[10]):
+                sn = (data_buff[3] << 8) | data_buff[2]
+                pdop = (data_buff[5] << 8) | data_buff[4]
+                hdop = (data_buff[7] << 8) | data_buff[6]
+                vdop = (data_buff[9] << 8) | data_buff[8]
+            else:
+                print('0x5A 校验失败')
         elif buff[1] == 0x5f:
             if checkSum(data_buff[0:10], data_buff[10]):
                 readval = hex_to_short(data_buff[2:10])
@@ -111,6 +131,13 @@ def handleSerialData(raw_data):
             imu_msg.orientation_z = qua[2]
             imu_msg.orientation_w = qua[3]
 
+            imu_msg.year = year
+            imu_msg.year = month
+            imu_msg.year = day
+            imu_msg.year = hour
+            imu_msg.year = minute
+            imu_msg.year = second
+            imu_msg.year = millisecond
             imu_msg.angular_velocity_x = angularVelocity[0]
             imu_msg.angular_velocity_y = angularVelocity[1]
             imu_msg.angular_velocity_z = angularVelocity[2]

@@ -24,7 +24,7 @@ m.ChangeDutyCycle(0) 	# 初始化占空比
 
 def servos_motor(msg):
     if msg.angle >= 0 and msg.angle <= 180:
-        s.ChangeDutyCycle(angleToDutyCycle(msg.angle))
+        s.ChangeDutyCycle(angleToDutyCycle(msg.angle)+40)
         sleep(0.1)
         s.ChangeDutyCycle(0) # 清空当前占空比，使舵机停止抖动
         m.ChangeDutyCycle(msg.speed)
@@ -32,5 +32,5 @@ def servos_motor(msg):
 
 if __name__ == "__main__":
     rospy.init_node("Servos_Motor_Control")
-    sub=rospy.Subscriber("command/servos_motor",)
-    sub_angle_speed = rospy.Subscriber("cmd/servos_motor",Drive,servos_motor,queue_size=10)
+    sub_angle_speed = rospy.Subscriber("command/servos_motor",Drive,servos_motor,queue_size=10)
+    rospy.spin()
